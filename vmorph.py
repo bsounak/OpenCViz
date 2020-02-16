@@ -39,7 +39,6 @@ ksize_ax = plt.axes([0.25, 0.15, 0.65, 0.03])
 ksize_sl = Slider(
     ksize_ax, 'kernel size', 3, 51, valinit=5, valstep=2)
 ksize_sl.on_changed(update_ksize)
-ksize_ax.set_visible(False)
 
 # iterations
 iterations = 1
@@ -52,20 +51,17 @@ iterations_ax = plt.axes([0.25, 0.1, 0.15, 0.03])
 iterations_sl = Slider(
     iterations_ax, 'iterations', 1, 5, valinit=1, valstep=1)
 iterations_sl.on_changed(update_iterations)
-iterations_ax.set_visible(False)
 
 mtype = "ORIGINAL"
 def set_mtype(label):
     global mtype
     mtype = label
-    fig.canvas.draw_idle()
     update()
 
 mshape = "RECT"
 def set_mshape(label):
     global mshape
     mshape = label
-    fig.canvas.draw_idle()
     update()
 
 # radio buttons for morphological operation types
@@ -95,12 +91,9 @@ def get_kernel():
     return kernel
 
 def update(val=None):
-    axvis = True
-
     kernel = get_kernel()
     if mtype == "ORIGINAL":
         morphed = img
-        axvis = False
     elif mtype == "ERODE":
         morphed = cv2.erode(img, kernel, iterations=iterations)
     elif mtype == "DILATE":
@@ -121,8 +114,7 @@ def update(val=None):
         morphed = cv2.morphologyEx(
             img, cv2.MORPH_BLACKHAT, kernel, iterations=iterations)
 
-    ksize_ax.set_visible(axvis)
-    iterations_ax.set_visible(axvis)
     ax.imshow(morphed, cmap="gray")
+    plt.draw()
 
 plt.show()
