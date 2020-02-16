@@ -80,7 +80,7 @@ def set_axes_visibility(label):
         bs_ax.set_visible(False)
         c_ax.set_visible(False)
 
-    fig.canvas.draw_idle()
+    plt.draw()
     update()
 
 rax = plt.axes([0.025, 0.5, 0.15, 0.15])
