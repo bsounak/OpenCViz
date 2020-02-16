@@ -59,6 +59,7 @@ def update(val=None):
         _, th = cv2.threshold(
             img, 0, 255, cv2.THRESH_BINARY+cv2.THRESH_OTSU)
     ax.imshow(th, cmap="gray")
+    plt.draw()
 
 th_sl.on_changed(update)
 bs_sl.on_changed(update)
@@ -79,8 +80,6 @@ def set_axes_visibility(label):
         th_ax.set_visible(False)
         bs_ax.set_visible(False)
         c_ax.set_visible(False)
-
-    plt.draw()
     update()
 
 rax = plt.axes([0.025, 0.5, 0.15, 0.15])
