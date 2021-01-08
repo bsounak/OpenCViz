@@ -33,7 +33,10 @@ th_sl = Slider(th_ax, 'thresh val', 0, 255, valinit=127, valstep=1)
 th_ax.set_visible(False)
 # block size (adaptive)
 bs_ax = plt.axes([0.25, 0.1, 0.65, 0.03])
-bs_sl = Slider(bs_ax, 'block size', 3, 49, valinit=11, valstep=2)
+bsize = int(max(img.shape[0], img.shape[1])/4.0)
+if bsize % 2 == 0:
+    bsize += 1
+bs_sl = Slider(bs_ax, 'block size', 3, bsize, valinit=11, valstep=2)
 bs_ax.set_visible(False)
 # constant (adaptive)
 c_ax = plt.axes([0.25, 0.05, 0.65, 0.03])
