@@ -6,19 +6,13 @@ import matplotlib.pyplot as plt
 from matplotlib.widgets import Slider, RadioButtons
 import cv2
 
+from imageutils import load_grayscale
+
 parser = argparse.ArgumentParser()
 parser.add_argument("-i", "--image", required=True)
 args = parser.parse_args()
 
-image = cv2.imread(args.image, 0)
-assert image is not None, "Failed to read image: {}".format(args.image)
-
-# resize if the image is too big
-if image.shape[0] * image.shape[1] > 1.2e6:
-    aspect_ratio = image.shape[1] / image.shape[0]
-    image = cv2.resize(
-        image, (int(1024 * aspect_ratio), 1024), interpolation=cv2.INTER_CUBIC
-    )
+image = load_grayscale(args.image)
 
 fig, ax = plt.subplots()
 plt.subplots_adjust(left=0.25, bottom=0.25)
