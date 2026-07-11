@@ -33,6 +33,7 @@ ksize_ax = plt.axes([0.25, 0.15, 0.65, 0.03])
 ksize_sl = Slider(
     ksize_ax, 'kernel size', 3, 51, valinit=5, valstep=2)
 ksize_sl.on_changed(update_ksize)
+ksize_ax.set_visible(False)
 
 # iterations
 iterations = 1
@@ -45,11 +46,18 @@ iterations_ax = plt.axes([0.25, 0.1, 0.15, 0.03])
 iterations_sl = Slider(
     iterations_ax, 'iterations', 1, 5, valinit=1, valstep=1)
 iterations_sl.on_changed(update_iterations)
+iterations_ax.set_visible(False)
 
 mtype = "ORIGINAL"
 def set_mtype(label):
     global mtype
     mtype = label
+    if label == "ORIGINAL":
+        ksize_ax.set_visible(False)
+        iterations_ax.set_visible(False)
+    else:
+        ksize_ax.set_visible(True)
+        iterations_ax.set_visible(True)
     update()
 
 mshape = "RECT"
